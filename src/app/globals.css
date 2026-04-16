@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: #171717;
+  --color-foreground: #ffffff;
+  --color-error: #82181a;
+  --color-error-bg: var(--color-red-950);
+  --color-primary: var(--color-indigo-600);
+  --color-primary-hover: var(--color-indigo-500);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: var(--text-base);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  h1 { font-size: var(--text-4xl); }
+  h2 { font-size: var(--text-2xl); }
+  h3 { font-size: var(--text-xl); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer components {
+  /* Forms */
+  [type="text"], 
+  [type="email"], 
+  [type="password"], 
+  [type="number"], 
+  textarea, 
+  select {
+    @apply block w-full rounded-md border-0 bg-white/5 p-1.5 ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6;
+  }
+
+  .btn {
+    @apply flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply bg-indigo-600 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+  }
+
+  .btn-secondary {
+    @apply bg-white/10 hover:bg-white/20;
+  }
+
+  /* Alerts */
+  .alert-error {
+    @apply rounded-md border border-red-900 p-4 text-sm font-medium text-red-200;
+    background-color: var(--color-error-bg);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  /* Journal Entry Scoping */
+  .journal-prose p {
+    @apply mb-4 leading-relaxed text-gray-300;
+  }
+  .journal-prose p:last-child {
+    @apply mb-0;
+  }
 }
